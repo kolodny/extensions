@@ -1,0 +1,41 @@
+{
+    "manifest_version": 2,
+    "name": "Library Detector",
+    "version": "2.7",
+    "web_accessible_resources": [
+        "library/libraries.js",
+        "content_scripts/lib_detect.js"
+    ],
+    "description": "Detects the Javascript libraries running on a page and displays their icons in the address bar.",
+    "icons": {
+        "48": "icons/icon_48.png",
+        "128": "icons/icon_128.png"
+    },
+    "background": {
+        "scripts": [
+            "library/libraries.js",
+            "background_scripts/main.js"
+        ]
+    },
+    "page_action": {
+        "default_icon": "icons/null.png",
+        "default_title": "Library Detector"
+    },
+    "permissions": [
+        "tabs",
+        "http://*/*",
+        "https://*/*"
+    ],
+    "content_scripts": [
+        {
+            "matches": ["http://*/*", "https://*/*"],
+            "js": ["content_scripts/inject.js"],
+            "run_at": "document_end"
+        },
+        {
+            "matches": ["http://*/*", "https://*/*"],
+            "js": ["content_scripts/detect.js"],
+            "run_at": "document_idle"
+        }
+    ]
+}
